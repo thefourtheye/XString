@@ -16,12 +16,12 @@
   "scripts": {
     "test": "./node_modules/istanbul/lib/cli.js test ./node_modules/mocha/bin/_mocha -- -u exports -R spec"
   },
-  "keywords": {
+  "keywords": [
     "LCS",
     "Longest Common Substring",
     "Count",
     "Frequency Counter"
-  },
+  ],
   "devDependencies": {
     "jslint": "~0.1.9",
     "mocha": "~1.13.0",
@@ -31,7 +31,7 @@
     "should": "~1.3.0",
     "istanbul": "~0.1.44"
   },
-  "license": "MIT",
+  "license": "GPL3",
   "engine": {
     "node": ">=0.10"
   }
