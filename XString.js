@@ -85,9 +85,9 @@ XString.prototype.frequencyCounter = function () {
     }());
 };
 
-XString.prototype.longestCommonSubstrings = function (inputString) {
+XString.prototype.commonSubstrings = function (inputString) {
     var nativeString = this.getString(),
-        result = [],
+        result = {},
         i,
         j,
         len = nativeString.length,
@@ -108,14 +108,14 @@ XString.prototype.longestCommonSubstrings = function (inputString) {
                         currentRow[j] = previousRow[j - 1] + 1;
                     }
                 }
-                if (currentRow[j] > longestLength) {
+                if (currentRow[j] >= longestLength && currentRow[j]) {
                     longestLength = currentRow[j];
-                    result.length = 0;
-                    result.push(nativeString.substring(i - (longestLength - 1), i + 1));
-                } else if (currentRow[j] === longestLength && longestLength) {
                     tempString = nativeString.substring(i - (longestLength - 1), i + 1);
-                    if (result.indexOf(tempString) === -1) {
-                        result.push(nativeString.substring(i - (longestLength - 1), i + 1));
+                    if (result.hasOwnProperty(tempString.length) === false) {
+                        result[tempString.length] = [];
+                    }
+                    if (result[tempString.length].indexOf(tempString) === -1) {
+                        result[tempString.length].push(nativeString.substring(i - (longestLength - 1), i + 1));
                     }
                 }
             }
@@ -125,6 +125,15 @@ XString.prototype.longestCommonSubstrings = function (inputString) {
 
     } else {
         result = null;
+    }
+    return result;
+};
+
+
+XString.prototype.longestCommonSubstrings = function (inputString) {
+    var result = this.commonSubstrings(inputString);
+    if (result) {
+        result = result[Math.max.apply(null, Object.keys(result))] || [];
     }
     return result;
 };
